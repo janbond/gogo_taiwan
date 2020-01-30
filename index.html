@@ -85,17 +85,13 @@
       itemCounter ++
     }
     setInterval(addData, 300);
-    // function checkNum(input) {
-    checkNum = function () {
-      var ipu = document.getElementById("inputText").value;
-      if (!isNaN(ipu)) {
-        alert("請輸入數字");
-        return false;
+    function checkNum(ipu) {
+    
+      
+      var inputNu = /^[0-9]*$/;
+      if (!inputNu.test(ipu)) {
+        alert("請輸入數字")
       }
-      // var inputNu = /^[0-9]*$/;
-      // if (!inputNu.test(ipu)) {
-      //   alert("請輸入數字")
-      // }
     }
 
     //起點
