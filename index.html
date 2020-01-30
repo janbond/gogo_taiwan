@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="">
 
 <head>
@@ -29,9 +29,13 @@
   font-family:Roboto, 微軟正黑體;
   transition:all 0.8s ease 0s;
 }
-#textIn {
+#textS {
   padding: 30px 0;
   font-family:Roboto, 微軟正黑體;
+}
+#textIn {
+  display: inline-block;
+  padding: 0 10px;
 }
 #player {
 	position: absolute;
@@ -58,8 +62,8 @@
 	<div id="showData"></div>
 
   <div class="" style="width: 100%; text-align: center; padding: 50px 10px; font-family:Roboto, 微軟正黑體;">
-    輸入步數 (value數字是起點，輸入後按下enter鍵)：<input type="" id="inputText" value="0"> 步
-    <div id="textIn"></div>
+    輸入步數 (value數字是起點，輸入後按下enter鍵)：<input type="" id="inputText" value="0" onkeypress="checkNum()"> 步
+    <div id="textS">你現在走<span id="textIn">0</span>步</div>
   </div>
 </div>
 
@@ -81,9 +85,11 @@
       itemCounter ++
     }
     setInterval(addData, 300);
+    
 
     //起點
     var start = document.getElementById("inputText").value;
+    
     function playerStart(start) {
       if(start < 1) {
         $("#player").css({'top':'0', 'left':'0'});
@@ -109,11 +115,18 @@
     if (num.key === 'Enter') {
       
       var playerStep = num.target.value;
+      var getNewV = document.getElementById("textIn").textContent;
+      console.log(getNewV);
+      
 
+      playerStep = parseInt(playerStep)+parseInt(getNewV);
+      console.log("total value: " + playerStep);
       if(playerStep > 100) {
-        document.getElementById("textIn").innerHTML = '你走出台灣了啦';
+        //document.getElementById("textIn").innerHTML = '你走出台灣了啦';
+        document.getElementById("textS").innerHTML = '你現在走<span id="textIn">'+ playerStep +'</span>步，你走出台灣了啦';
       }else {
-        document.getElementById("textIn").innerHTML = '你現在走'+ playerStep +'步';
+        //document.getElementById("textIn").innerHTML = '你現在走'+ playerStep +'步';
+        document.getElementById("textIn").innerHTML = playerStep;
       }
       
       
@@ -123,7 +136,7 @@
       
 			
 			function playerGo(step) {
-				if(step < 1) {
+				if(step < 10) {
 					$("#player").css({'top':'0', 'left':'0'});
 					step = 1
 				}else if (step >= 10 && step < 30) {
@@ -135,10 +148,11 @@
 				}else if (step >= 55 && step < 100) {
 					$("#player").css({'top':'0', 'left':'50%'});
 					step = 3
-				}else if (step <= 100) {
+				}else if (step == 100) {
           $("#player").css({'top':'0', 'left':'75%'});
 					step = 4;
 				}else if (step > 100) {
+          $("#player").css({'top':'0', 'left':'75%'});
           step = 5;
           alert('超過範圍囉');
           
@@ -148,9 +162,9 @@
 				// var current = locatStep[step - 1]
         // var $nextStep = locatStep[step] - current
         
-        console.log($nextStep)
+       // console.log($nextStep)
         if(step == 5) {
-          $('#nextStep').html('重新輸入一次好嗎，謝謝');
+          $('#nextStep').html('超過囉，謝謝');
         }else if (step == 4) {
           $('#nextStep').html('恭喜你到終點');
         }else {
@@ -161,8 +175,7 @@
 				
 			}
       playerGo(step);
-      
-      
+
       // console.log('playerStep 後的步數 '+playerStep)
       // console.log('newPlayerStep 後的步數 '+newPlayerStep)
     // });
