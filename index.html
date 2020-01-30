@@ -85,12 +85,13 @@
       itemCounter ++
     }
     setInterval(addData, 300);
-    checkNum = function (ipu) {
     
-      
-      var inputNu = /^[0-9]*$/;
-      if (!inputNu.test(ipu)) {
-        alert("請輸入數字")
+    //判斷是否為數字
+    checkNum = function (ipu) {
+      var inputNu = /^[0-9]+$/;
+      if (!inputNu.test(ipu.value)) {
+        alert("請輸入數字");
+        return false;
       }
     }
 
